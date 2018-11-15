@@ -1,0 +1,23 @@
+<nav th:fragment="menu" id="navbar_top" class="navbar navbar-expand-lg navbar-light"
+     xmlns:th="http://www.thymeleaf.org">
+    <!--th:classappend="${user.gender} == 'M' ? 'bg-primary':'bg-danger'" -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item" th:classappend="${#httpServletRequest.requestURI} == '/' ? 'active' : ''">
+                <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item" th:classappend="${#httpServletRequest.requestURI} == '/courses' ? 'active' : ''">
+                <a class="nav-link" href="/courses">Cars</a>
+            </li>
+        </ul>
+        <span class="navbar-text">
+            Welcome <span id="name_span">
+                <!--th:text="${user.name}"-->
+            </span>
+        </span>
+    </div>
+</nav>
