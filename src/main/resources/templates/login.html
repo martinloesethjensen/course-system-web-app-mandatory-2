@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+</head>
+<body>
+<form class="form-signin form-group row mt-lg-5" method="post">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div class="text-center mb-4">
+            <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-12">
+                <label for="inputEmail">Email</label>
+                <input type="email" id="inputEmail" class="form-control" name="username" placeholder="Email"
+                       autofocus="true" autocomplete="off">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-12">
+                <label for="inputPassword">Password</label>
+                <input type="password" id="inputPassword" class="form-control" name="password"
+                       placeholder="Password">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-12">
+                <input name="action" class="btn btn-success float-right" type="submit" value="Login"/>
+                <input name="action" class="btn btn-primary" type="submit" value="Back"/>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+</form>
+</body>
+</html>
