@@ -34,9 +34,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/student/").access("hasAnyAuthority('ROLE_student')")
-                .antMatchers("/admin/").access("hasAnyAuthority('ROLE_admin')")
-                .antMatchers("/teacher/").access("hasAnyAuthority('ROLE_teacher')")
+                .antMatchers("/student/").access("hasAnyAuthority('ROLE_STUDENT')")
+                .antMatchers("/admin/").access("hasAnyAuthority('ROLE_ADMIN')")
+                .antMatchers("/teacher/").access("hasAnyAuthority('ROLE_TEACHER')")
                 .antMatchers("/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -47,11 +47,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
                         for(GrantedAuthority grantedAuthority: authorities) {
-                            if (grantedAuthority.getAuthority().equals("ROLE_student")) {
+                            if (grantedAuthority.getAuthority().equals("ROLE_STUDENT")) {
                                 httpServletResponse.sendRedirect("/student/");
-                            } else if (grantedAuthority.getAuthority().equals("ROLE_teacher")) {
+                            } else if (grantedAuthority.getAuthority().equals("ROLE_TEACHER")) {
                                 httpServletResponse.sendRedirect("/teacher/");
-                            } else if (grantedAuthority.getAuthority().equals("ROLE_admin")) {
+                            } else if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
                                 httpServletResponse.sendRedirect("/admin/");
                             }
                         }
