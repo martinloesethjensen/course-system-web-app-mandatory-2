@@ -4,11 +4,12 @@ import dk.kea.mandatory2.model.Course;
 import dk.kea.mandatory2.model.Student;
 import dk.kea.mandatory2.model.StudyProgramme;
 import dk.kea.mandatory2.model.Teacher;
-import dk.kea.mandatory2.view.CourseRepository;
-import dk.kea.mandatory2.view.StudentRepository;
-import dk.kea.mandatory2.view.StudyProgrammeRepository;
-import dk.kea.mandatory2.view.TeacherRepository;
+import dk.kea.mandatory2.repository.CourseRepository;
+import dk.kea.mandatory2.repository.StudentRepository;
+import dk.kea.mandatory2.repository.StudyProgrammeRepository;
+import dk.kea.mandatory2.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -27,9 +28,21 @@ public class HomeController {
 	@Autowired
 	StudyProgrammeRepository studyProgrammeRepository;
 
+	@GetMapping("/login")
+	public String loginView() { return "login"; }
+
+	@GetMapping("/student/")
+	public String studentView() { return "student/index"; }
+
+	@GetMapping("/teacher/")
+	public String teacherView() { return "teacher/index"; }
+
+	@GetMapping("/admin/")
+	public String adminView() { return "admin/index"; }
+
 	@GetMapping("/")
 	public String index() {
-		Teacher teacher = new Teacher("Santiago Donoso", 54, "sand@kea.dk", 1);
+		Teacher teacher = new Teacher("Santiago Donoso", 54, "sand@kea.dk");
 		teacherRepository.save(teacher);
 		System.out.println(teacher);
 
@@ -65,7 +78,7 @@ public class HomeController {
 		List<Course> courses = new ArrayList<>();
 		courses.add(course);
 		courseRepository.save(course);
-		Student student = new Student("Helle", 29, "helle@kea.dk", 3, courses);
+		Student student = new Student("Helle", 29, "helle@kea.dk", courses);
 
 		studentRepository.save(student);
 

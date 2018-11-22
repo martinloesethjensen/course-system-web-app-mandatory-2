@@ -5,23 +5,21 @@ import javax.persistence.*;
 @Entity
 @Table
 @Inheritance( strategy = InheritanceType.JOINED )
-public class Person {
+public abstract class Person {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	private String name;
 	private Integer age;
 	private String email;
-	private Integer accessLevel;
 
 	public Person() {
 	}
 
-	public Person(String name, Integer age, String email, Integer accessLevel) {
+	public Person(String name, Integer age, String email) {
 		this.name = name;
 		this.age = age;
 		this.email = email;
-		this.accessLevel = accessLevel;
 	}
 
 	@Override
@@ -31,7 +29,6 @@ public class Person {
 				", name='" + name + '\'' +
 				", age=" + age +
 				", email='" + email + '\'' +
-				", accessLevel=" + accessLevel +
 				'}';
 	}
 
@@ -57,13 +54,5 @@ public class Person {
 
 	public void setAge(Integer age) {
 		this.age = age;
-	}
-
-	public Integer getAccessLevel() {
-		return accessLevel;
-	}
-
-	public void setAccessLevel(Integer accessLevel) {
-		this.accessLevel = accessLevel;
 	}
 }

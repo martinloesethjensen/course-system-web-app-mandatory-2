@@ -9,15 +9,15 @@ public class Session {
 	private int id;
 	private String username;
 	private String password;
-
-//	isLoggedIn;
+	private String role;
 
 	public Session() {
 	}
 
-	public Session(String username, String password, boolean isLoggedIn) {
+	public Session(String username, String password, String role) {
 		this.username = username;
 		this.password = password;
+		this.role = role;
 	}
 
 	public String getUsername() {
@@ -34,5 +34,13 @@ public class Session {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 }

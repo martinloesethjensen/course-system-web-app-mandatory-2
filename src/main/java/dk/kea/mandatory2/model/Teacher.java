@@ -10,8 +10,8 @@ public class Teacher extends Person{
 	public Teacher() {
 	}
 
-	public Teacher(String name, Integer age, String email, Integer accessLevel) {
-		super(name, age, email, accessLevel);
+	public Teacher(String name, Integer age, String email) {
+		super(name, age, email);
 	}
 
 	@Override

@@ -3,19 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="../static/css/bootstrap.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
-<form class="form-signin form-group row mt-lg-5" method="post">
+<form class="form-signin form-group row mt-lg-5" method="post" th:action="@{/login}">
     <div class="col-md-4"></div>
     <div class="col-md-4">
         <div class="text-center mb-4">
             <h1 class="h3 mb-3 font-weight-normal">Login</h1>
         </div>
+        <div class="alert alert-danger" role="alert" th:if="${param.error}">
+            Invalid username and password.
+        </div>
         <div class="form-group row">
             <div class="col-md-12">
-                <label for="inputEmail">Email</label>
-                <input type="email" id="inputEmail" class="form-control" name="username" placeholder="Email"
+                <label for="inputEmail">Username</label>
+                <input type="text" id="inputEmail" class="form-control" name="username" placeholder="Username"
                        autofocus="true" autocomplete="off">
             </div>
         </div>
@@ -28,8 +31,7 @@
         </div>
         <div class="form-group row">
             <div class="col-md-12">
-                <input name="action" class="btn btn-success float-right" type="submit" value="Login"/>
-                <input name="action" class="btn btn-primary" type="submit" value="Back"/>
+                <input class="btn btn-success float-right" type="submit" value="Login"/>
             </div>
         </div>
     </div>

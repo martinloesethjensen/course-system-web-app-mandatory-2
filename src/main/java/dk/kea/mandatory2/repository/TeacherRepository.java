@@ -1,4 +1,4 @@
-package dk.kea.mandatory2.view;
+package dk.kea.mandatory2.repository;
 
 import dk.kea.mandatory2.model.Teacher;
 import org.springframework.data.repository.CrudRepository;
