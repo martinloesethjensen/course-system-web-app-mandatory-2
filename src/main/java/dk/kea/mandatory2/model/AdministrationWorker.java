@@ -8,8 +8,8 @@ public class AdministrationWorker extends Person {
 	public AdministrationWorker() {
 	}
 
-	public AdministrationWorker(String name, Integer age, Integer accessLevel) {
-		super(name, age, accessLevel);
+	public AdministrationWorker(String name, Integer age, String email, Integer accessLevel) {
+		super(name, age, email, accessLevel);
 	}
 
 	@Override

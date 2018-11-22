@@ -11,14 +11,16 @@ public class Person {
 	private Integer id;
 	private String name;
 	private Integer age;
+	private String email;
 	private Integer accessLevel;
 
 	public Person() {
 	}
 
-	public Person(String name, Integer age, Integer accessLevel) {
+	public Person(String name, Integer age, String email, Integer accessLevel) {
 		this.name = name;
 		this.age = age;
+		this.email = email;
 		this.accessLevel = accessLevel;
 	}
 
@@ -27,7 +29,8 @@ public class Person {
 		return "Person{" +
 				"id=" + id +
 				", name='" + name + '\'' +
-				", age='" + age + '\'' +
+				", age=" + age +
+				", email='" + email + '\'' +
 				", accessLevel=" + accessLevel +
 				'}';
 	}
