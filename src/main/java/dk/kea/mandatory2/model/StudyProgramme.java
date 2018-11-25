@@ -12,6 +12,9 @@ public class StudyProgramme {
 	private Integer id;
 	private String programme;
 
+	public StudyProgramme() {
+	}
+
 	public StudyProgramme(String programme) {
 		this.programme = programme;
 	}

@@ -9,7 +9,6 @@ import dk.kea.mandatory2.repository.StudentRepository;
 import dk.kea.mandatory2.repository.StudyProgrammeRepository;
 import dk.kea.mandatory2.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -43,11 +42,11 @@ public class HomeController {
 	@GetMapping("/")
 	public String index() {
 		Teacher teacher = new Teacher("Santiago Donoso", 54, "sand@kea.dk");
-		teacherRepository.save(teacher);
-		System.out.println(teacher);
+//		teacherRepository.save(teacher);
+//		System.out.println(teacher);
 
 		StudyProgramme studyProgramme = new StudyProgramme("Web Development");
-		studyProgrammeRepository.save(studyProgramme);
+//		studyProgrammeRepository.save(studyProgramme);
 
 		List<Teacher> teacherList = new ArrayList<>();
 
@@ -77,10 +76,10 @@ public class HomeController {
 
 		List<Course> courses = new ArrayList<>();
 		courses.add(course);
-		courseRepository.save(course);
+//		courseRepository.save(course);
 		Student student = new Student("Helle", 29, "helle@kea.dk", courses);
 
-		studentRepository.save(student);
+//		studentRepository.save(student);
 
 		return "index";
 	}

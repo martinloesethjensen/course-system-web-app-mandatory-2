@@ -1,4 +1,4 @@
-<nav th:fragment="menu" id="navbar_top" class="navbar navbar-expand-lg navbar-light"
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbar_top" th:fragment="menu"
      xmlns:th="http://www.thymeleaf.org">
     <!--th:classappend="${user.gender} == 'M' ? 'bg-primary':'bg-danger'" -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
@@ -11,13 +11,12 @@
                 <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item" th:classappend="${#httpServletRequest.requestURI} == '/courses' ? 'active' : ''">
-                <a class="nav-link" href="/courses">Cars</a>
+                <a class="nav-link" href="/courses">Courses</a>
             </li>
         </ul>
-        <span class="navbar-text">
-            Welcome <span id="name_span">
-                <!--th:text="${user.name}"-->
-            </span>
-        </span>
+        <form class="form-inline" th:if="${#httpServletRequest.requestURI} == '/courses'">
+            <input aria-label="Search" class="form-control mr-sm-2" placeholder="Search for courses" type="search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
     </div>
 </nav>
