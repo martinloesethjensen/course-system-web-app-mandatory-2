@@ -1,6 +1,5 @@
 package dk.kea.mandatory2.controller;
 
-import dk.kea.mandatory2.WebSecurityConfig;
 import dk.kea.mandatory2.model.Course;
 import dk.kea.mandatory2.model.Student;
 import dk.kea.mandatory2.model.StudyProgramme;
@@ -11,7 +10,6 @@ import dk.kea.mandatory2.repository.StudyProgrammeRepository;
 import dk.kea.mandatory2.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
@@ -43,7 +41,7 @@ public class HomeController {
 
 	@GetMapping("/")
 	public String index() {
-		Teacher teacher = new Teacher("Santiago Donoso", 54, "sand@kea.dk");
+		Teacher teacher = new Teacher("Santiago Donoso", 54, "sand@kea.dk", new Session("santigo", "1234", "TEACHER"));
 //		teacherRepository.save(teacher);
 //		System.out.println(teacher);
 
@@ -71,15 +69,15 @@ public class HomeController {
 						"in Amazon Web Servers and locally. Use of the terminal and FTP. Also, the setup and" +
 						" use of HTTPS.",
 				"Individual work and exam. Communication takes place via our Ryver " +
-				"channel WD-2018-F-NODEJS",
+						"channel WD-2018-F-NODEJS",
 				"Internal oral exam based on hand in product. Graded based on the 7-scale.",
 				teacherList
-				);
+		);
 
 		List<Course> courses = new ArrayList<>();
 		courses.add(course);
 //		courseRepository.save(course);
-		Student student = new Student("Helle", 29, "helle@kea.dk", courses);
+		Student student = new Student("Helle", 29, "helle@kea.dk", new Session("helle", "1234", "STUDENT"), courses);
 
 //		studentRepository.save(student);
 

@@ -1,10 +1,8 @@
 package dk.kea.mandatory2.model;
 
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,8 +15,8 @@ public class Student extends Person {
 	public Student() {
 	}
 
-	public Student(String name, Integer age, String email, List<Course> courses) {
-		super(name, age, email);
+	public Student(String name, Integer age, String email, Session session, List<Course> courses) {
+		super(name, age, email, session);
 		this.courses = courses;
 	}
 

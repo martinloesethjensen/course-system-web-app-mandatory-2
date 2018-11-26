@@ -44,4 +44,10 @@ public class CourseController {
 		model.addAttribute("teachers", teacherRepository.findAll());
 		return "teacher/courseCreate";
 	}
+
+	@GetMapping("/student/courses")
+	public String listCoursesForStudent(Model model) {
+		model.addAttribute("courses", courseRepository.findAll());
+		return "courses";
+	}
 }

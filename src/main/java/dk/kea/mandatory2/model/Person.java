@@ -12,14 +12,17 @@ public abstract class Person {
 	private String name;
 	private Integer age;
 	private String email;
+	@OneToOne
+	private Session session;
 
 	public Person() {
 	}
 
-	public Person(String name, Integer age, String email) {
+	public Person(String name, Integer age, String email, Session session) {
 		this.name = name;
 		this.age = age;
 		this.email = email;
+		this.session = session;
 	}
 
 	@Override
@@ -29,6 +32,7 @@ public abstract class Person {
 				", name='" + name + '\'' +
 				", age=" + age +
 				", email='" + email + '\'' +
+				", session=" + session +
 				'}';
 	}
 
@@ -62,5 +66,13 @@ public abstract class Person {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Session getSession() {
+		return session;
+	}
+
+	public void setSession(Session session) {
+		this.session = session;
 	}
 }
