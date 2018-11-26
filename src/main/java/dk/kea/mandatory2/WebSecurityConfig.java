@@ -49,6 +49,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
                         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
+                        myId = sessionRepository.findByUsernameEquals(((UserDetails)authentication.getPrincipal()).getUsername()).getId();
+
                         for(GrantedAuthority grantedAuthority: authorities) {
                             if (grantedAuthority.getAuthority().equals("ROLE_STUDENT")) {
                                 prefix = "/student";
@@ -96,4 +98,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public static String getPrefixURL() {
         return prefix;
     }
+
+    public static int getMyId() { return myId; }
 }

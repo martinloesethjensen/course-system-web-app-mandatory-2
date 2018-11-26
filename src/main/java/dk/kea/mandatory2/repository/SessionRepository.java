@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface SessionRepository extends CrudRepository<Session, Integer> {
     List<Session> findAll();
+    Session findByUsernameEquals(String username);
 }

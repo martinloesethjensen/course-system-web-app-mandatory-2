@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <title>Courses</title>
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+</head>
+<body>
+<div th:replace="/includes/menu::menu"></div>
+<form id="saveCourseForm">
+    <div class="container">
+        <div class="row" id="submit-dialog" style="display: none;">
+            <div class="col-md-12">
+                <div class="alert alert-warning" id="working">
+                    <i class="fas fa-sync fa-spin"></i>&nbsp;&nbsp;Submitting your request, please stand by...
+                </div>
+            </div>
+        </div>
+        <div class="row hide-on-submit">
+            <div class="col-md-12">
+                <h2>Edit Course</h2>
+            </div>
+        </div>
+        <div class="row hide-on-submit">
+            <input th:field="${course.id}" type="hidden" />
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Name of the course (Danish):</label>
+                            <input th:field="${course.courseNameDanish}" type="text" class="form-control" placeholder="Please enter the name of the course in danish..." />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Name of the course (English):</label>
+                            <input th:field="${course.courseNameEnglish}" type="text" class="form-control" placeholder="Please enter the name of the course in english..." />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Semester:</label>
+                            <input th:field="${course.semester}" type="number" min="1" max="10" class="form-control" placeholder="Please enter the name of the course in english..." />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Classcode:</label>
+                            <input th:field="${course.classCode}" type="text" class="form-control" placeholder="Please enter the classcode of this course..." />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Study Programme:</label>
+                            <select th:field="${course.studyProgramme}" class="form-control">
+                                <option th:each="programme : ${studyProgrammes}" th:value="${programme.id}" th:text="${programme.programme}" th:selected="${programme.id == course.studyProgramme}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Mandatory or Elective:</label>
+                            <select name="mandatoryOrElective" class="form-control">
+                                <option value="Mandatory">Mandatory</option>
+                                <option value="Elective">Elective</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>ECTS:</label>
+                            <input th:field="${course.ects}" type="number" min="0" max="1000" class="form-control" placeholder="Please enter the amount of ETCS points this course yields" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Course Language:</label>
+                            <input th:field="${course.courseLanguage}" type="text" class="form-control" placeholder="Please enter the language of the course..." />
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Minimum number of students:</label>
+                            <input th:field="${course.minNumberOfStudents}" type="number" min="0" max="1000" class="form-control" placeholder="Please enter the minimum amount of students..." />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Expected number of students:</label>
+                            <input th:field="${course.expectedNumberOfStudents}" type="number" min="0" max="1000" class="form-control" placeholder="Please enter the expected amount of students..." />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Maximum number of students:</label>
+                            <input th:field="${course.maxNumberOfStudents}" type="number" min="0" max="1000" class="form-control" placeholder="Please enter the maximum amount of students..." />
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Prerequisites:</label>
+                            <textarea class="form-control" row="5" th:field="${course.prerequisites}" placeholder="Enter the prerequisites of this course.."></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Learning Outcome:</label>
+                            <textarea class="form-control" row="5" th:field="${course.learningOutcome}" placeholder="Enter the learning outcome of this course.."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Content:</label>
+                            <textarea class="form-control" row="5" th:field="${course.content}" placeholder="Enter the content of this course.."></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Learning Activities:</label>
+                            <textarea class="form-control" row="5" th:field="${course.learningActivities}" placeholder="Enter the learning activities of this course.."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Exam Form:</label>
+                            <textarea class="form-control" row="5" th:field="${course.examForm}" placeholder="Enter the examForm of this course.."></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Teachers:</label>
+                            <select class="form-control" multiple="multiple" th:field="${course.teachers}">
+                                <option th:each="teacher: ${teachers}" th:text="${teacher.name}+' ('+${teacher.email}+')'" th:value="${teacher.id}" th:selected="${course.teachers.contains(teacher.id)}"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button id="saveCourse_btn" class="btn btn-success float-right" type="button">Save Course</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script>
+
+    // Send CSRF protection header upon each request.
+    // This is needed for the Spring default CSRF protection that is required when send a request.
+    // For example a DELETE HTTP request.
+    $(function () {
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+        $(document).ajaxSend(function (e, xhr, options) {
+            xhr.setRequestHeader(header, token);
+        });
+    });
+
+    $("#saveCourse_btn").click(function () {
+        $("#submit-dialog").show();
+        $(".hide-on-submit").hide();
+
+        $.ajax({
+            method: "PUT",
+            url: "/course/edit",
+            data: $("#saveCourseForm").serialize(),
+            success: function(msg) {
+                window.location.href = "http://localhost:8080/teacher/course/";
+            },
+            error: function(what) {
+                console.log(what);
+            }
+        });
+    });
+</script>
+</body>
+</html>

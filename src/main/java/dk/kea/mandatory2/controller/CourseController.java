@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class CourseController {
@@ -34,7 +35,7 @@ public class CourseController {
 	@GetMapping("/teacher/course/")
 	public String listCoursesTeacher(Model model) {
 		model.addAttribute("prefix", WebSecurityConfig.getPrefixURL());
-		model.addAttribute("courses", courseRepository.findAllByTeachers_id(1));
+		model.addAttribute("courses", courseRepository.findAllByTeachers_idOrderByIdAsc(WebSecurityConfig.getMyId()-a ));
 		model.addAttribute("success", success);
 		success = false;
 		return "teacher/courseList";
@@ -48,6 +49,15 @@ public class CourseController {
 		model.addAttribute("teachers", teacherRepository.findAll());
 		return "teacher/courseCreate";
 	}
+
+    @GetMapping("/teacher/course/edit/{id}")
+    public String createCourse(Model model, @PathVariable("id") Integer id) {
+        model.addAttribute("prefix", WebSecurityConfig.getPrefixURL());
+        model.addAttribute("course", courseRepository.findAllById(id));
+        model.addAttribute("studyProgrammes", studyProgrammeRepository.findAll());
+        model.addAttribute("teachers", teacherRepository.findAll());
+        return "teacher/courseEdit";
+    }
 
 	@GetMapping("/student/courses")
 	public String listCoursesForStudent(Model model) {
