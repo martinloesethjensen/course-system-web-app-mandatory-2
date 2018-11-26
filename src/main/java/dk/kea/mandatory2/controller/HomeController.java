@@ -1,15 +1,14 @@
 package dk.kea.mandatory2.controller;
 
-import dk.kea.mandatory2.model.Course;
-import dk.kea.mandatory2.model.Student;
-import dk.kea.mandatory2.model.StudyProgramme;
-import dk.kea.mandatory2.model.Teacher;
+import dk.kea.mandatory2.WebSecurityConfig;
+import dk.kea.mandatory2.model.*;
 import dk.kea.mandatory2.repository.CourseRepository;
 import dk.kea.mandatory2.repository.StudentRepository;
 import dk.kea.mandatory2.repository.StudyProgrammeRepository;
 import dk.kea.mandatory2.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;

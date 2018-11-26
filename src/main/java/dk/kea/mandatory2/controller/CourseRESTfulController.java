@@ -30,6 +30,7 @@ public class CourseRESTfulController {
 		if(course == null)
 			return new ResponseEntity<>("WHAT! No course detected", HttpStatus.NO_CONTENT);
 		courseRepository.save(course);
+		CourseController.success = true;
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}
 }

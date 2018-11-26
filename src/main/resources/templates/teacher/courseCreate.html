@@ -6,17 +6,25 @@
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <title>Courses</title>
     <link href="/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 </head>
 <body>
     <div th:replace="/includes/menu::menu"></div>
     <form id="createCourseForm">
         <div class="container">
-            <div class="row">
+            <div class="row" id="submit-dialog" style="display: none;">
+                <div class="col-md-12">
+                    <div class="alert alert-warning" id="working">
+                        <i class="fas fa-sync fa-spin"></i>&nbsp;&nbsp;Submitting your request, please stand by...
+                    </div>
+                </div>
+            </div>
+            <div class="row hide-on-submit">
                 <div class="col-md-12">
                     <h2>Create Course</h2>
                 </div>
             </div>
-            <div class="row">
+            <div class="row hide-on-submit">
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-6">
@@ -170,12 +178,18 @@
         });
 
         $("#createCourse_btn").click(function () {
+            $("#submit-dialog").show();
+            $(".hide-on-submit").hide();
+
             $.ajax({
                 method: "POST",
                 url: "/course/create",
                 data: $("#createCourseForm").serialize(),
                 success: function(msg) {
-
+                    window.location.href = "http://localhost:8080/teacher/course/";
+                },
+                error: function(what) {
+                    console.log(what);
                 }
             });
         });

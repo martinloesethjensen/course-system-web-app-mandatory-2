@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class CourseController {
+    public static boolean success = false;
+    public static boolean failed = false;
 
 	@Autowired
 	CourseRepository courseRepository;
@@ -32,7 +34,9 @@ public class CourseController {
 	@GetMapping("/teacher/course/")
 	public String listCoursesTeacher(Model model) {
 		model.addAttribute("prefix", WebSecurityConfig.getPrefixURL());
-		model.addAttribute("courses", courseRepository.findAllByTeachersAndIdIs(1));
+		model.addAttribute("courses", courseRepository.findAllByTeachers_id(1));
+		model.addAttribute("success", success);
+		success = false;
 		return "teacher/courseList";
 	}
 

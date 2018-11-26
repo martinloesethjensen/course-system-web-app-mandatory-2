@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <title>Courses</title>
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+</head>
+<body>
+<div th:replace="/includes/menu::menu"></div>
+<div class="container">
+    <div class="row" th:if="${success}">
+        <div class="col-md-12">
+            <div class="alert alert-success" id="working">
+                <i class="fas fa-check"></i>&nbsp;&nbsp;Successfully created the course! Hurray!
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Course Name Danish</th>
+                    <th scope="col">Class Code</th>
+                    <th scope="col">
+                        <a class="btn btn-success float-right btn-sm" href="/teacher/course/create">Add a new course</a>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="course : ${courses}">
+                    <td th:text="${course.courseNameDanish}"></td>
+                    <td th:text="${course.classCode}"></td>
+                    <td>
+                        <a class="btn btn-primary float-right">Edit</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script>
+
+    // Send CSRF protection header upon each request.
+    // This is needed for the Spring default CSRF protection that is required when send a request.
+    // For example a DELETE HTTP request.
+    $(function () {
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+        $(document).ajaxSend(function (e, xhr, options) {
+            xhr.setRequestHeader(header, token);
+        });
+    });
+</script>
+</body>
+</html>

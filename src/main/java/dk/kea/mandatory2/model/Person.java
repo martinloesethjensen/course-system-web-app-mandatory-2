@@ -15,6 +15,7 @@ public abstract class Person {
 	@OneToOne
 	private Session session;
 
+
 	public Person() {
 	}
 

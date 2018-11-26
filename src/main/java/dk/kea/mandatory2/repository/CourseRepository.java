@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface CourseRepository extends CrudRepository<Course, Integer> {
-    List<Course> findAllByTeachersAndIdIs(Integer id);
+    List<Course> findAllByTeachers_id(Integer id);
 }
