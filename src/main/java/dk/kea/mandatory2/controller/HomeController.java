@@ -1,5 +1,6 @@
 package dk.kea.mandatory2.controller;
 
+import dk.kea.mandatory2.WebSecurityConfig;
 import dk.kea.mandatory2.model.Course;
 import dk.kea.mandatory2.model.Student;
 import dk.kea.mandatory2.model.StudyProgramme;
@@ -10,6 +11,7 @@ import dk.kea.mandatory2.repository.StudyProgrammeRepository;
 import dk.kea.mandatory2.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
@@ -31,13 +33,13 @@ public class HomeController {
 	public String loginView() { return "login"; }
 
 	@GetMapping("/student/")
-	public String studentView() { return "student/index"; }
+	public String studentView(Model model) { model.addAttribute("prefix", WebSecurityConfig.getPrefixURL()); return "student/index"; }
 
 	@GetMapping("/teacher/")
-	public String teacherView() { return "teacher/index"; }
+	public String teacherView(Model model) { model.addAttribute("prefix", WebSecurityConfig.getPrefixURL()); return "teacher/index"; }
 
 	@GetMapping("/admin/")
-	public String adminView() { return "admin/index"; }
+	public String adminView(Model model) { model.addAttribute("prefix", WebSecurityConfig.getPrefixURL()); return "admin/index"; }
 
 	@GetMapping("/")
 	public String index() {

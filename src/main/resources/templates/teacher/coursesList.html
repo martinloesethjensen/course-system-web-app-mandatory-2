@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <title>Courses</title>
+    <link href="/css/bootstrap.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="/includes/menu::menu"></div>
+<div class="form-group row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">courseNameDanish</th>
+                <th scope="col">classCode</th>
+                <th class="float-right" scope="col">
+                    <a class="btn btn-success" href="#">Add a new course</a>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="course : ${courses}">
+                <td th:text="${course.courseNameDanish}"></td>
+                <td th:text="${course.classCode}"></td>
+                <td class="float-right">
+                    <!-- Button trigger modal -->
+                    <button class="btn btn-primary btn-outline-primary" data-toggle="modal"
+                            th:attr="data-target='#details-modal-' + ${course.id}"
+                            type="button">
+                        Details
+                    </button>
+                    <a class="btn btn-danger btn-outline-danger" data-target="#modal-warning"
+                       data-toggle="modal" th:attr="data-target='#modal-warning'+${course}">Delete</a>
+                </td>
+                <!--TODO: Finish course detail modal. When it works put it in includes folder and make a th:fragment if possible -->
+                <!--&lt;!&ndash; DETAILS MODAL &ndash;&gt;-->
+                <!--<div class="modal fade" th:id="details-modal- + ${course}" tabindex="-1" role="dialog"-->
+                <!--aria-labelledby="exampleModalLongTitle"-->
+                <!--aria-hidden="true">-->
+                <!--<div class="modal-dialog" role="document">-->
+                <!--<div class="modal-content">-->
+                <!--<div class="modal-header">-->
+                <!--<h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>-->
+                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+                <!--<span aria-hidden="true">&times;</span>-->
+                <!--</button>-->
+                <!--</div>-->
+                <!--<div class="modal-body">-->
+                <!--<div class="form-group row">-->
+                <!--<div class="col-md-1"></div>-->
+                <!--<div class="col-md-10">-->
+                <!--<input type="text" th:field="${course.courseNameDanish}"/>-->
+                <!--</div>-->
+                <!--<div class="col-md-1"></div>-->
+                <!--</div>-->
+                <!--<div class="form-group row">-->
+                <!--<div class="col-md-1"></div>-->
+                <!--<div class="col-md-10">-->
+                <!--<input type="text" th:field="${course.courseNameEnglish}"/>-->
+                <!--</div>-->
+                <!--<div class="col-md-1"></div>-->
+                <!--</div>-->
+                <!--<div class="form-group row">-->
+                <!--<div class="col-md-1"></div>-->
+                <!--<div class="col-md-10">-->
+                <!--<input type="number" th:field="${course.semester}"/>-->
+                <!--</div>-->
+                <!--<div class="col-md-1"></div>-->
+                <!--</div>-->
+                <!--<div class="form-group row">-->
+                <!--<div class="col-md-1"></div>-->
+                <!--<div class="col-md-10">-->
+                <!--<input type="text" th:field="${course.classCode}"/>-->
+                <!--</div>-->
+                <!--<div class="col-md-1"></div>-->
+                <!--</div>-->
+                <!--<div class="form-group row">-->
+                <!--<div class="col-md-1"></div>-->
+                <!--<div class="col-md-10">-->
+                <!--&lt;!&ndash; TODO: Make a dropdown for all studyProgramme. It should also be on the current one &ndash;&gt;-->
+                <!--<input type="text" th:field="${course.studyProgramme}"/>-->
+                <!--</div>-->
+                <!--<div class="col-md-1"></div>-->
+                <!--</div>-->
+                <!--<div class="form-group row">-->
+                <!--<div class="col-md-1"></div>-->
+                <!--<div class="col-md-10">-->
+                <!--<input type="text" th:field="${course.mandatoryOrElective}"/>-->
+                <!--</div>-->
+                <!--<div class="col-md-1"></div>-->
+                <!--</div>-->
+                <!--<div class="form-group row">-->
+                <!--<div class="col-md-1"></div>-->
+                <!--<div class="col-md-10">-->
+                <!--<input type="number" min="0" th:field="${course.ects}"/>-->
+                <!--</div>-->
+                <!--<div class="col-md-1"></div>-->
+                <!--</div>-->
+                <!--<div class="form-group row">-->
+                <!--<div class="col-md-1"></div>-->
+                <!--<div class="col-md-10">-->
+                <!--<input type="text" th:field="${course.courseLanguage}"/>-->
+                <!--</div>-->
+                <!--<div class="col-md-1"></div>-->
+                <!--</div>-->
+                <!--<div class="form-group row">-->
+                <!--<div class="col-md-1"></div>-->
+                <!--<div class="col-md-10">-->
+                <!--<input type="number" min="0" th:field="${course.minNumberOfStudents}"/>-->
+                <!--</div>-->
+                <!--<div class="col-md-1"></div>-->
+                <!--</div>-->
+                <!--<div class="form-group row">-->
+                <!--<div class="col-md-1"></div>-->
+                <!--<div class="col-md-10">-->
+                <!--<input type="number" min="0" th:field="${course.expectedNumberOfStudents}"/>-->
+                <!--</div>-->
+                <!--<div class="col-md-1"></div>-->
+                <!--</div>-->
+                <!--<div class="form-group row">-->
+                <!--<div class="col-md-1"></div>-->
+                <!--<div class="col-md-10">-->
+                <!--<input type="number" min="0" th:field="${course.maxNumberOfStudents}"/>-->
+                <!--</div>-->
+                <!--<div class="col-md-1"></div>-->
+                <!--</div>-->
+                <!--<div class="form-group row">-->
+                <!--<div class="col-md-1"></div>-->
+                <!--<div class="col-md-10">-->
+                <!--<textarea type="text" th:field="${course.prerequisites}"></textarea>-->
+                <!--</div>-->
+                <!--<div class="col-md-1"></div>-->
+                <!--</div>-->
+                <!--<div class="form-group row">-->
+                <!--<div class="col-md-1"></div>-->
+                <!--<div class="col-md-10">-->
+                <!--<textarea type="text" th:field="${course.learningOutcome}"></textarea>-->
+                <!--</div>-->
+                <!--<div class="col-md-1"></div>-->
+                <!--</div>-->
+                <!--<div class="form-group row">-->
+                <!--<div class="col-md-1"></div>-->
+                <!--<div class="col-md-10">-->
+                <!--<textarea type="text" th:field="${course.content}"></textarea>-->
+                <!--</div>-->
+                <!--<div class="col-md-1"></div>-->
+                <!--</div>-->
+                <!--<div class="form-group row">-->
+                <!--<div class="col-md-1"></div>-->
+                <!--<div class="col-md-10">-->
+                <!--<textarea type="text" th:field="${course.learningActivities}"></textarea>-->
+                <!--</div>-->
+                <!--<div class="col-md-1"></div>-->
+                <!--</div>-->
+                <!--<div class="form-group row">-->
+                <!--<div class="col-md-1"></div>-->
+                <!--<div class="col-md-10">-->
+                <!--<textarea type="text" th:field="${course.learningOutcome}"></textarea>-->
+                <!--</div>-->
+                <!--<div class="col-md-1"></div>-->
+                <!--</div>-->
+                <!--<div class="form-group row">-->
+                <!--<div class="col-md-1"></div>-->
+                <!--<div class="col-md-10">-->
+                <!--&lt;!&ndash; TODO: Make a multiple select dropdown for all teacher. It should also be on the current ones &ndash;&gt;-->
+                <!--<input type="text" th:field="${course.teachers}"/>-->
+                <!--</div>-->
+                <!--<div class="col-md-1"></div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="modal-footer">-->
+                <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+                <!--<button type="button" class="btn btn-success btn-outline-success">Save changes</button>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--&lt;!&ndash; END OF DETAILS MODAL &ndash;&gt;-->
+
+                <!-- DELETE MODAL -->
+                <div class="modal modal-warning fade in" th:id="modal-warning+${course.id}">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Delete Course</h5>
+                                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <h3>Are you sure want to delete this course?</h3>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-outline pull-left" data-dismiss="modal" type="button">Close
+                                </button>
+                                <button class="btn btn-danger btn-outline-danger"
+                                        th:onclick=" 'javascript: deleteCourse(' + ${course.id} + ')'">
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END OF DELETE MODAL -->
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script>
+
+    // Send CSRF protection header upon each request.
+    // This is needed for the Spring default CSRF protection that is required when send a request.
+    // For example a DELETE HTTP request.
+    $(function () {
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+        $(document).ajaxSend(function (e, xhr, options) {
+            xhr.setRequestHeader(header, token);
+        });
+    });
+
+    function deleteCourse(id) {
+        $.ajax({
+            method: "DELETE",
+            url: "/course/delete/" + id,
+            success: function (response) {
+                alert("This course has been deleted.\nPlease wait a moment for the request to go through our server.\n"
+                    + JSON.stringify(response));
+                location.reload();
+            },
+            error: function (error) {
+                alert("ERROR\n" + JSON.stringify(error));
+                location.reload();
+            }
+        });
+    }
+
+    // $(document).on("click", ".delete-course", function () {
+    //     console.log("Button press");
+    //     var courseId = $(this).data("id");
+    //     console.log(courseId);
+    //     $.ajax({
+    //         method: 'delete',
+    //         url: '/course/delete/' + courseId,
+    //         success: function (resp) {
+    //             alert("This course has been deleted\n" + JSON.stringify(resp));
+    //             location.reload();
+    //         },
+    //         error: function (err) {
+    //             alert("ERROR\n" + JSON.stringify(err));
+    //             location.reload();
+    //         }
+    //     });
+    // })
+</script>
+</body>
+</html>

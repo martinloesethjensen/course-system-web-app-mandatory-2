@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -26,6 +27,9 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    private static String prefix = "";
+    private static int myId = 0;
+
     @Autowired
     SessionRepository sessionRepository;
 
@@ -33,9 +37,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/student/").access("hasAnyAuthority('ROLE_STUDENT')")
-                .antMatchers("/admin/").access("hasAnyAuthority('ROLE_ADMIN')")
-                .antMatchers("/teacher/").access("hasAnyAuthority('ROLE_TEACHER')")
+                .antMatchers("/student/*").access("hasAnyAuthority('ROLE_STUDENT')")
+                .antMatchers("/admin/*").access("hasAnyAuthority('ROLE_ADMIN')")
+                .antMatchers("/teacher/*").access("hasAnyAuthority('ROLE_TEACHER')")
                 .antMatchers("/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -47,10 +51,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                         for(GrantedAuthority grantedAuthority: authorities) {
                             if (grantedAuthority.getAuthority().equals("ROLE_STUDENT")) {
+                                prefix = "/student";
                                 httpServletResponse.sendRedirect("/student/");
                             } else if (grantedAuthority.getAuthority().equals("ROLE_TEACHER")) {
+                                prefix = "/teacher";
                                 httpServletResponse.sendRedirect("/teacher/");
                             } else if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
+                                prefix = "/admin";
                                 httpServletResponse.sendRedirect("/admin/");
                             }
                         }
@@ -84,5 +91,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         }
 
         return new InMemoryUserDetailsManager(users);
+    }
+
+    public static String getPrefixURL() {
+        return prefix;
     }
 }
