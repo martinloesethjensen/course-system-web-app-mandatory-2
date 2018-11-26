@@ -17,4 +17,10 @@ public class CourseController {
 		model.addAttribute("courses", courseRepository.findAll());
 		return "courses";
 	}
+
+	@GetMapping("/student/courses")
+	public String listCoursesForStudent(Model model) {
+		model.addAttribute("courses", courseRepository.findAll());
+		return "courses";
+	}
 }

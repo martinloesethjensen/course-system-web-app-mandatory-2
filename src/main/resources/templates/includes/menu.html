@@ -14,7 +14,7 @@
                 <a class="nav-link" href="/courses">Courses</a>
             </li>
         </ul>
-        <form class="form-inline" th:if="${#httpServletRequest.requestURI} == '/courses'">
+        <form class="form-inline" th:if="${#httpServletRequest.requestURI} == '/student/courses'">
             <input aria-label="Search" class="form-control mr-sm-2" placeholder="Search for courses" type="search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>

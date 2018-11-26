@@ -1,9 +1,6 @@
 package dk.kea.mandatory2.controller;
 
-import dk.kea.mandatory2.model.Course;
-import dk.kea.mandatory2.model.Student;
-import dk.kea.mandatory2.model.StudyProgramme;
-import dk.kea.mandatory2.model.Teacher;
+import dk.kea.mandatory2.model.*;
 import dk.kea.mandatory2.repository.CourseRepository;
 import dk.kea.mandatory2.repository.StudentRepository;
 import dk.kea.mandatory2.repository.StudyProgrammeRepository;
@@ -28,20 +25,28 @@ public class HomeController {
 	StudyProgrammeRepository studyProgrammeRepository;
 
 	@GetMapping("/login")
-	public String loginView() { return "login"; }
+	public String loginView() {
+		return "login";
+	}
 
 	@GetMapping("/student/")
-	public String studentView() { return "student/index"; }
+	public String studentView() {
+		return "student/index";
+	}
 
 	@GetMapping("/teacher/")
-	public String teacherView() { return "teacher/index"; }
+	public String teacherView() {
+		return "teacher/index";
+	}
 
 	@GetMapping("/admin/")
-	public String adminView() { return "admin/index"; }
+	public String adminView() {
+		return "admin/index";
+	}
 
 	@GetMapping("/")
 	public String index() {
-		Teacher teacher = new Teacher("Santiago Donoso", 54, "sand@kea.dk");
+		Teacher teacher = new Teacher("Santiago Donoso", 54, "sand@kea.dk", new Session("santigo", "1234", "TEACHER"));
 //		teacherRepository.save(teacher);
 //		System.out.println(teacher);
 
@@ -69,15 +74,15 @@ public class HomeController {
 						"in Amazon Web Servers and locally. Use of the terminal and FTP. Also, the setup and" +
 						" use of HTTPS.",
 				"Individual work and exam. Communication takes place via our Ryver " +
-				"channel WD-2018-F-NODEJS",
+						"channel WD-2018-F-NODEJS",
 				"Internal oral exam based on hand in product. Graded based on the 7-scale.",
 				teacherList
-				);
+		);
 
 		List<Course> courses = new ArrayList<>();
 		courses.add(course);
 //		courseRepository.save(course);
-		Student student = new Student("Helle", 29, "helle@kea.dk", courses);
+		Student student = new Student("Helle", 29, "helle@kea.dk", new Session("helle", "1234", "STUDENT"), courses);
 
 //		studentRepository.save(student);
 
