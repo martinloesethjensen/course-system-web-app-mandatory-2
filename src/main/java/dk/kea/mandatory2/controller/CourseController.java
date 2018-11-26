@@ -35,7 +35,7 @@ public class CourseController {
 	@GetMapping("/teacher/course/")
 	public String listCoursesTeacher(Model model) {
 		model.addAttribute("prefix", WebSecurityConfig.getPrefixURL());
-		model.addAttribute("courses", courseRepository.findAllByTeachers_idOrderByIdAsc(WebSecurityConfig.getMyId()-a ));
+		model.addAttribute("courses", courseRepository.findAllByTeachers_idOrderByIdAsc(WebSecurityConfig.getMyId()));
 		model.addAttribute("success", success);
 		success = false;
 		return "teacher/courseList";

@@ -1,7 +1,9 @@
 package dk.kea.mandatory2;
 
 import dk.kea.mandatory2.model.Session;
+import dk.kea.mandatory2.repository.PersonRepository;
 import dk.kea.mandatory2.repository.SessionRepository;
+import dk.kea.mandatory2.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,6 +35,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     SessionRepository sessionRepository;
 
+    @Autowired
+    PersonRepository personRepository;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -49,13 +54,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
                         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
-                        myId = sessionRepository.findByUsernameEquals(((UserDetails)authentication.getPrincipal()).getUsername()).getId();
-
                         for(GrantedAuthority grantedAuthority: authorities) {
                             if (grantedAuthority.getAuthority().equals("ROLE_STUDENT")) {
                                 prefix = "/student";
                                 httpServletResponse.sendRedirect("/student/");
                             } else if (grantedAuthority.getAuthority().equals("ROLE_TEACHER")) {
+                                Integer sessionId = sessionRepository.findByUsernameEquals(((UserDetails)authentication.getPrincipal()).getUsername()).getId();
+                                myId = (personRepository.findAllBySession_id(sessionId)).getId();
                                 prefix = "/teacher";
                                 httpServletResponse.sendRedirect("/teacher/");
                             } else if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
