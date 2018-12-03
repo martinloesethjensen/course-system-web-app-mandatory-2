@@ -3,7 +3,6 @@ package dk.kea.mandatory2;
 import dk.kea.mandatory2.model.Session;
 import dk.kea.mandatory2.repository.PersonRepository;
 import dk.kea.mandatory2.repository.SessionRepository;
-import dk.kea.mandatory2.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +11,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -56,6 +54,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                         for(GrantedAuthority grantedAuthority: authorities) {
                             if (grantedAuthority.getAuthority().equals("ROLE_STUDENT")) {
+                                Integer sessionId = sessionRepository.findByUsernameEquals(((UserDetails) authentication.getPrincipal()).getUsername()).getId();
+                                myId = (personRepository.findAllBySession_id(sessionId)).getId();
                                 prefix = "/student";
                                 httpServletResponse.sendRedirect("/student/");
                             } else if (grantedAuthority.getAuthority().equals("ROLE_TEACHER")) {
@@ -64,6 +64,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                 prefix = "/teacher";
                                 httpServletResponse.sendRedirect("/teacher/");
                             } else if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
+                                Integer sessionId = sessionRepository.findByUsernameEquals(((UserDetails) authentication.getPrincipal()).getUsername()).getId();
+                                myId = (personRepository.findAllBySession_id(sessionId)).getId();
                                 prefix = "/admin";
                                 httpServletResponse.sendRedirect("/admin/");
                             }

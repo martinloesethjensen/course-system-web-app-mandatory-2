@@ -25,14 +25,14 @@ public class CourseController {
 	@Autowired
 	TeacherRepository teacherRepository;
 
-	@GetMapping("/courses")
-	public String listCourses(Model model) {
-		model.addAttribute("prefix", WebSecurityConfig.getPrefixURL());
-		model.addAttribute("courses", courseRepository.findAll());
-		return "courses";
-	}
+//	@GetMapping("/courses")
+//	public String listCourses(Model model) {
+//		model.addAttribute("prefix", WebSecurityConfig.getPrefixURL());
+//		model.addAttribute("courses", courseRepository.findAll());
+//		return "courses";
+//	}
 
-	@GetMapping("/teacher/course/")
+	@GetMapping("/teacher/courses/")
 	public String listCoursesTeacher(Model model) {
 		model.addAttribute("prefix", WebSecurityConfig.getPrefixURL());
 		model.addAttribute("courses", courseRepository.findAllByTeachers_idOrderByIdAsc(WebSecurityConfig.getMyId()));
@@ -41,7 +41,7 @@ public class CourseController {
 		return "teacher/courseList";
 	}
 
-	@GetMapping("/teacher/course/create")
+	@GetMapping("/teacher/courses/create")
 	public String createCourse(Model model) {
 		model.addAttribute("prefix", WebSecurityConfig.getPrefixURL());
 		model.addAttribute("course", new Course());
@@ -50,7 +50,7 @@ public class CourseController {
 		return "teacher/courseCreate";
 	}
 
-    @GetMapping("/teacher/course/edit/{id}")
+	@GetMapping("/teacher/courses/edit/{id}")
     public String createCourse(Model model, @PathVariable("id") Integer id) {
         model.addAttribute("prefix", WebSecurityConfig.getPrefixURL());
         model.addAttribute("course", courseRepository.findAllById(id));
@@ -61,7 +61,8 @@ public class CourseController {
 
 	@GetMapping("/student/courses")
 	public String listCoursesForStudent(Model model) {
-		model.addAttribute("courses", courseRepository.findAll());
-		return "courses";
+		model.addAttribute("prefix", WebSecurityConfig.getPrefixURL());
+		model.addAttribute("courses", courseRepository.findAllById(WebSecurityConfig.getMyId()));
+		return "student/courseList";
 	}
 }
