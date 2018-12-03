@@ -23,14 +23,7 @@
                 <td th:text="${course.courseNameDanish}"></td>
                 <td th:text="${course.classCode}"></td>
                 <td class="float-right">
-                    <!--&lt;!&ndash; Button trigger modal &ndash;&gt;-->
-                    <!--<button class="btn btn-primary btn-outline-primary" data-toggle="modal"-->
-                    <!--th:attr="data-target='#details-modal-' + ${course.id}"-->
-                    <!--type="button">-->
-                    <!--Details-->
-                    <!--</button>-->
-                    <!--<a class="btn btn-danger btn-outline-danger" data-target="#modal-warning"-->
-                    <!--data-toggle="modal" th:attr="data-target='#modal-warning'+${course}">Delete</a>-->
+                    <a class="btn btn-outline-primary" href="#" th:if="${user_id} != ">Apply</a>
                 </td>
             </tr>
             </tbody>

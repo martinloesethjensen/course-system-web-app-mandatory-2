@@ -7,5 +7,8 @@ import java.util.List;
 
 public interface CourseRepository extends CrudRepository<Course, Integer> {
     List<Course> findAllByTeachers_idOrderByIdAsc(Integer id);
-    Course findAllById(Integer id);
+
+    List<Course> findAllById(Integer id);
+
+    List<Course> findCoursesByClassCodeContaining(String search);
 }

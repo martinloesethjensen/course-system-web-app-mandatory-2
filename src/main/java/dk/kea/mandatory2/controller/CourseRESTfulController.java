@@ -24,16 +24,16 @@ public class CourseRESTfulController {
 
 	@PostMapping("/course/create")
 	public ResponseEntity createCourse(Course course) {
-		if(course == null)
-			return new ResponseEntity<>("WHAT! No course detected", HttpStatus.NO_CONTENT);
-		courseRepository.save(course);
-		CourseController.success = true;
-		return new ResponseEntity<>("OK", HttpStatus.OK);
+		return getResponseEntity(course);
 	}
 
 	@PutMapping("/course/edit")
 	public ResponseEntity editCourse(Course course) {
-		if(course == null)
+		return getResponseEntity(course);
+	}
+
+	private ResponseEntity getResponseEntity(Course course) {
+		if (course == null)
 			return new ResponseEntity<>("WHAT! No course detected", HttpStatus.NO_CONTENT);
 		courseRepository.save(course);
 		CourseController.success = true;

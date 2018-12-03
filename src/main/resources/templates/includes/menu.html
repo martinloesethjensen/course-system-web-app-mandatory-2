@@ -14,10 +14,18 @@
                 th:classappend="${#httpServletRequest.requestURI} == ${prefix}+'/courses/' ? 'active' : ''">
                 <a class="nav-link" th:href="${prefix}+'/courses/'">Courses</a>
             </li>
+            <li class="nav-item text-right">
+            </li>
+            <li class="nav-item text-right">
+            </li>
         </ul>
-        <form class="form-inline" th:if="${#httpServletRequest.requestURI} == ${prefix}+'/courses/'">
-            <input aria-label="Search" class="form-control mr-sm-2" placeholder="Search for courses" type="search">
+        <form action="/student/courses/" class="form-inline" method="get"
+              th:if="${#httpServletRequest.requestURI} == ${prefix}+'/courses/'">
+            <input aria-label="Search" class="form-control mr-sm-2" id="search" name="search"
+                   placeholder="Search for courses"
+                   type="search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
+        <a class="btn float-right btn-outline-danger" href="/login?logout" style="margin-left: 10px;">Log out</a>
     </div>
 </nav>

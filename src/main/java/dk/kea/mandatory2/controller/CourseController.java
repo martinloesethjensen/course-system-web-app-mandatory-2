@@ -10,6 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 public class CourseController {
@@ -24,13 +27,6 @@ public class CourseController {
 
 	@Autowired
 	TeacherRepository teacherRepository;
-
-//	@GetMapping("/courses")
-//	public String listCourses(Model model) {
-//		model.addAttribute("prefix", WebSecurityConfig.getPrefixURL());
-//		model.addAttribute("courses", courseRepository.findAll());
-//		return "courses";
-//	}
 
 	@GetMapping("/teacher/courses/")
 	public String listCoursesTeacher(Model model) {
@@ -59,10 +55,23 @@ public class CourseController {
         return "teacher/courseEdit";
     }
 
-	@GetMapping("/student/courses")
-	public String listCoursesForStudent(Model model) {
+	@GetMapping("/student/courses/")
+	public String listCoursesForStudent(Model model,
+	                                    @RequestParam(defaultValue = "", name = "search") String search)
+	{
+		System.out.println(search);
+		List<Course> courses = null;
+
+		int userId = WebSecurityConfig.getMyId();
+		model.addAttribute("user_id", userId);
 		model.addAttribute("prefix", WebSecurityConfig.getPrefixURL());
-		model.addAttribute("courses", courseRepository.findAllById(WebSecurityConfig.getMyId()));
+		if (search.equals("")) {
+			courses = courseRepository.findAllById(userId);
+		} else {
+			courses = courseRepository.findCoursesByClassCodeContaining(search);
+		}
+		System.out.println(courses);
+		model.addAttribute("courses", courses);
 		return "student/courseList";
 	}
 }
