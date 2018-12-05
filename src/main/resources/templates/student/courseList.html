@@ -10,6 +10,7 @@
 <div class="form-group row">
     <div class="col-md-2"></div>
     <div class="col-md-8">
+
         <table class="table table-striped">
             <thead>
             <tr>
@@ -23,7 +24,15 @@
                 <td th:text="${course.courseNameDanish}"></td>
                 <td th:text="${course.classCode}"></td>
                 <td class="float-right">
-                    <a class="btn btn-outline-primary" href="#" th:if="${user_id} != ">Apply</a>
+                    <form method="post" th:action="@{'/student/courses/apply/'+ ${course.id} + '&' + ${user_id}}">
+                        <!--<button class="btn btn-outline-primary"-->
+                        <!--th:onclick=" 'javascript: applyForCourse('+ ${course.id} + ', ' + ${user_id} + ')'">Apply-->
+                        <!--</button>-->
+                        <button class="btn btn-outline-primary"
+                                type="submit">
+                            Apply
+                        </button>
+                    </form>
                 </td>
             </tr>
             </tbody>
@@ -44,6 +53,21 @@
             xhr.setRequestHeader(header, token);
         });
     });
+
+    // function applyForCourse(course_id, user_id) {
+    //     $.ajax({
+    //         method: 'POST',
+    //         url: '/student/courses/apply/' + course_id + '&' + user_id,
+    //         success: function () {
+    //             console.log(course_id + " & " + user_id);
+    //             window.location.href = "/student/courses/";
+    //         },
+    //         error: function (e) {
+    //             console.log("ERROR: ", e);
+    //             display(e);
+    //         }
+    //     })
+    // }
 </script>
 </body>
 </html>

@@ -76,7 +76,7 @@ public class HomeController {
 		List<Course> courses = new ArrayList<>();
 		courses.add(course);
 //		courseRepository.save(course);
-		Student student = new Student("Helle", 29, "helle@kea.dk", new Session("helle", "1234", "STUDENT"), courses);
+		Student student = new Student("Helle", 29, "helle@kea.dk", new Session("helle", "1234", "STUDENT")/*, courses*/);
 
 //		studentRepository.save(student);
 

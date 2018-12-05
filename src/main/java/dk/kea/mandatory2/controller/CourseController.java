@@ -3,6 +3,7 @@ package dk.kea.mandatory2.controller;
 import dk.kea.mandatory2.WebSecurityConfig;
 import dk.kea.mandatory2.model.Course;
 import dk.kea.mandatory2.repository.CourseRepository;
+import dk.kea.mandatory2.repository.StudentCoursesRepository;
 import dk.kea.mandatory2.repository.StudyProgrammeRepository;
 import dk.kea.mandatory2.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class CourseController {
 
 	@Autowired
 	TeacherRepository teacherRepository;
+
+	@Autowired
+	StudentCoursesRepository studentCoursesRepository;
 
 	@GetMapping("/teacher/courses/")
 	public String listCoursesTeacher(Model model) {
@@ -59,7 +63,6 @@ public class CourseController {
 	public String listCoursesForStudent(Model model,
 	                                    @RequestParam(defaultValue = "", name = "search") String search)
 	{
-		System.out.println(search);
 		List<Course> courses = null;
 
 		int userId = WebSecurityConfig.getMyId();
@@ -70,7 +73,6 @@ public class CourseController {
 		} else {
 			courses = courseRepository.findCoursesByClassCodeContaining(search);
 		}
-		System.out.println(courses);
 		model.addAttribute("courses", courses);
 		return "student/courseList";
 	}
