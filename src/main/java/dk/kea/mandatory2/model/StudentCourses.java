@@ -5,9 +5,16 @@ import javax.persistence.*;
 @Entity
 @Table(name = "STUDENT_COURSES")
 public class StudentCourses {
-    private long id;
-    private Student student;
-    private Course course;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "student_id")
+	private Student student;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "course_id")
+	private Course course;
 
     private int approved;
     private int denied;
@@ -25,15 +32,10 @@ public class StudentCourses {
         this.time = time;
     }
 
-    @Id
-    @GeneratedValue
-    @Column(name = "ID")
     public long getId() {
         return id;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
     public Student getStudent() {
         return student;
     }
@@ -42,8 +44,6 @@ public class StudentCourses {
         this.student = student;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
     public Course getCourse() {
         return course;
     }
