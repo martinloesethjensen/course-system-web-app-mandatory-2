@@ -71,7 +71,7 @@ public class CourseController {
 		if (search.equals("")) {
 			courses = courseRepository.findAllById(userId);
 		} else {
-			courses = courseRepository.findCoursesByClassCodeContaining(search);
+			courses = courseRepository.findCoursesByCourseNameDanishContaining(search);
 		}
 		model.addAttribute("courses", courses);
 		return "student/courseList";
