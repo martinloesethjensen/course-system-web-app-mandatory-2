@@ -26,7 +26,8 @@
                     <th scope="col">Course Name Danish</th>
                     <th scope="col">Class Code</th>
                     <th scope="col">
-                        <a class="btn btn-success float-right btn-sm" href="/teacher/course/create">Add a new course</a>
+                        <a class="btn btn-success float-right btn-sm" href="/teacher/courses/create">Add a new
+                            course</a>
                     </th>
                 </tr>
                 </thead>
@@ -35,7 +36,10 @@
                     <td th:text="${course.courseNameDanish}"></td>
                     <td th:text="${course.classCode}"></td>
                     <td>
-                        <a class="btn btn-primary btn-sm float-right" th:href="'/teacher/course/edit/'+${course.id}">Edit</a>
+                        <button class="btn btn-danger btn-sm float-right"
+                                th:onclick=" 'javascript: deleteCourse(' + ${course.id} + ')'">Delete
+                        </button>
+                        <a class="btn btn-primary btn-sm float-right" th:href="'/teacher/courses/edit/'+${course.id}">Edit</a>
                     </td>
                 </tr>
                 </tbody>
@@ -57,6 +61,22 @@
             xhr.setRequestHeader(header, token);
         });
     });
+
+    function deleteCourse(id) {
+        $.ajax({
+            method: "DELETE",
+            url: "/course/delete/" + id,
+            success: function (response) {
+                alert("This course has been deleted.\nPlease wait a moment for the request to go through our server.\n"
+                    + JSON.stringify(response));
+                location.reload();
+            },
+            error: function (error) {
+                alert("ERROR\n" + JSON.stringify(error));
+                location.reload();
+            }
+        });
+    }
 </script>
 </body>
 </html>

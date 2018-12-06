@@ -53,7 +53,7 @@ public class CourseController {
 	@GetMapping("/teacher/courses/edit/{id}")
     public String createCourse(Model model, @PathVariable("id") Integer id) {
         model.addAttribute("prefix", WebSecurityConfig.getPrefixURL());
-        model.addAttribute("course", courseRepository.findAllById(id));
+		model.addAttribute("course", courseRepository.getById(id));
         model.addAttribute("studyProgrammes", studyProgrammeRepository.findAll());
         model.addAttribute("teachers", teacherRepository.findAll());
         return "teacher/courseEdit";

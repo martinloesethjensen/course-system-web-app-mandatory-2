@@ -25,7 +25,7 @@ public class Course {
 	private String content;
 	private String learningActivities;
 	private String examForm;
-	@ManyToMany
+	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
 	@JoinColumn(name = "id")
 	private List<Teacher> teachers;
 

@@ -2,6 +2,8 @@ package dk.kea.mandatory2.controller;
 
 import dk.kea.mandatory2.model.Course;
 import dk.kea.mandatory2.repository.CourseRepository;
+import dk.kea.mandatory2.repository.StudentCoursesRepository;
+import dk.kea.mandatory2.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,12 @@ public class CourseRESTfulController {
 
 	@Autowired
 	CourseRepository courseRepository;
+
+	@Autowired
+	TeacherRepository teacherRepository;
+
+	@Autowired
+	StudentCoursesRepository studentCoursesRepository;
 
 	@DeleteMapping("/course/delete/{id}")
 	public ResponseEntity deleteCourse(@PathVariable("id") Integer id) {
